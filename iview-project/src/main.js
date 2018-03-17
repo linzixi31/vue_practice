@@ -1,11 +1,12 @@
 import Vue from 'vue';
+import Vuex from 'vuex'
 import iView from 'iview';
 import VueRouter from 'vue-router';
 import Routers from './router';
 import Util from './libs/util';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
-
+import store from './vuex/store';
 Vue.use(VueRouter);
 Vue.use(iView);
 
@@ -29,6 +30,7 @@ router.afterEach((to, from, next) => {
 
 new Vue({
     el: '#app',
-    router: router,
+    router,
+    store,
     render: h => h(App)
 });

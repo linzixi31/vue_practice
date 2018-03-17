@@ -12,6 +12,7 @@
     }
 </style>
 <template>
+
     <div class="layout">
         <Sider :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto'}">
             <Menu active-name="1-2" theme="dark" width="auto" :open-names="['1']" @on-select='route'>
@@ -53,12 +54,18 @@
                 <Card>
                     <router-view></router-view> 
                 </Card>
+
+                 <Page :total="100" show-sizer @on-change='changepage'></Page>
             </Content>
         </Layout>
     </div>
 </template>
 <script>
+    import './index.css'
     export default {
+        mounted(){
+            console.log(this.$store)
+        },
         data(){
             return {
                 name:''
@@ -71,7 +78,9 @@
                     content: 'Now, enjoy the convenience of iView.'
                 });
             },
-           
+            changepage(e){
+                console.log(e)
+            },
             route(e){
                 switch(e){
                     case '1-1' :

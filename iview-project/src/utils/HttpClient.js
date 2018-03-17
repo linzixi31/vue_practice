@@ -1,14 +1,14 @@
 //http://visionmedia.github.io/superagent/
 import request from 'superagent'
-import router from '../router/index'
+import router from '../router.js'
 import $ from 'jquery'
 
 // import jsonp from 'superagent-jsonp';
 
-const LOCAL_SERVER = 'http://localhost:81/cloudapi/';
+const LOCAL_SERVER = '';
 
 const DEV_SERVER = '';
-const PRO_SERVER = 'http://www.dk-lan.com/cloudapi/';
+const PRO_SERVER = 'http://localhost:88/';
 
 function getUrl(path) {
     if (path.startsWith('http')) {
@@ -32,17 +32,17 @@ const errorHandler = (err) => {
 
 const HttpClient = {
     get: (path, query) => new Promise((resolve, reject) => {
-        if(!window.localStorage.getItem('access_token')){
-            router.push({name: 'login'});
-            return false;
-        }
-        $('.dk-spinner.dk-spinner-three-bounce, dk-spinner-mask').parent('div').show()
+        // if(!window.localStorage.getItem('access_token')){
+        //     router.push({name: 'login'});
+        //     return false;
+        // }
+        //$('.dk-spinner.dk-spinner-three-bounce, dk-spinner-mask').parent('div').show()
         var req = request
             .get(getUrl(path))
             .query(query)
             .set('Authorization',  window.localStorage.getItem('access_token'))
             .end((err, res) => {
-                $('.dk-spinner.dk-spinner-three-bounce, dk-spinner-mask').parent('div').hide()
+                //$('.dk-spinner.dk-spinner-three-bounce, dk-spinner-mask').parent('div').hide()
                 if (err) {
                     errorHandler(err)
                     reject(err);
@@ -53,11 +53,11 @@ const HttpClient = {
     }),
 
     post: (path, formdata, query) => new Promise((resolve, reject) => {
-        if(path.indexOf('login/index') < 0 && !window.localStorage.getItem('access_token')){
-            router.push({name: 'login'});
-            return false;            
-        }        
-        $('.dk-spinner.dk-spinner-three-bounce, dk-spinner-mask').parent('div').show()
+        // if(path.indexOf('login/index') < 0 && !window.localStorage.getItem('access_token')){
+        //     router.push({name: 'login'});
+        //     return false;            
+        // }        
+        //$('.dk-spinner.dk-spinner-three-bounce, dk-spinner-mask').parent('div').show()
         request
             .post(getUrl(path))
             .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
@@ -65,7 +65,7 @@ const HttpClient = {
             .query(query)
             .send(formdata)
             .end((err, res) => {
-                $('.dk-spinner.dk-spinner-three-bounce, dk-spinner-mask').parent('div').hide()
+                //$('.dk-spinner.dk-spinner-three-bounce, dk-spinner-mask').parent('div').hide()
                 if (err) {
                     errorHandler(err)
                     reject(err);
