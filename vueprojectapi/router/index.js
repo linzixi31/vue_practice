@@ -8,7 +8,7 @@ app.use(bp.json())
 var rooms = require('./rooms')
 var login = require('./login')
 var reg = require('./register')
-
+var person = require ('./person')
 var jwt = require('jsonwebtoken');
 var listPage = require('./listPage')
 var homepage = require("./homepage")
@@ -43,7 +43,7 @@ module.exports = {
         hotHotel.register(app);
         payment.reg(app);
         userHotelStatus.getUserStatus(app);
-        
+        person.reg(app);
         
         app.listen(_port);
     }

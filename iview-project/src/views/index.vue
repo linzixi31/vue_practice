@@ -19,13 +19,13 @@
                 <Submenu name="1">
                     <template slot="title">
                         <Icon type="ios-navigate"></Icon>
-                        商品列表
+                        用户列表
                     </template>
-                    <MenuItem name="1-1">商品</MenuItem>
-                    <MenuItem name="1-2">用户</MenuItem>
-                    <MenuItem name="1-3">Option 3</MenuItem>
+                    <MenuItem name="1-1">用户</MenuItem>
+                    <MenuItem name="1-2">搜索用户</MenuItem>
+                    <!-- <MenuItem name="1-3">Option 3</MenuItem> -->
                 </Submenu>
-                <Submenu name="2">
+                <!-- <Submenu name="2">
                     <template slot="title">
                         <Icon type="ios-keypad"></Icon>
                         Item 2
@@ -40,7 +40,7 @@
                     </template>
                     <MenuItem name="3-1">Option 1</MenuItem>
                     <MenuItem name="3-2">Option 2</MenuItem>
-                </Submenu>
+                </Submenu> -->
             </Menu>
         </Sider>
         <Layout :style="{marginLeft: '200px'}">
@@ -55,7 +55,6 @@
                     <router-view></router-view> 
                 </Card>
 
-                 <Page :total="100" show-sizer @on-change='changepage'></Page>
             </Content>
         </Layout>
     </div>
@@ -93,7 +92,7 @@
                     case '1-2' :
                     this.$router.push(
                             {
-                                path:"/index/user"
+                                path:"/index/sreach"
                             }
                         )
                     break

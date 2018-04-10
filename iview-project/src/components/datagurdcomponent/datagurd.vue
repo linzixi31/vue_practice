@@ -1,40 +1,56 @@
 <template>
-	<div>
-	    <table>
+	    <table cellspacing="0" cellpadding="0" border="0" class="table" >
 	    	<thead>
-	    			<th v-for="(key,value) in data[0]">{{value}}</th>
+	    			<th v-for="(key,value) in data[0]" >{{value}}</th>
 	    	</thead>
-	    	<tbody>
-	    		<tr v-for="(key,item) in data">
-	    			<td v-for="(key,value) in key">
-	    				{{key}}
+	    	<tbody class="ivu-table-tbody">
+	    		<tr v-for="(item,idx) in data" :key='item.id' >
+	    			<td v-for="(vals,key) in item" >
+	    				{{vals}}
+	    			</td>
+	    			<td>
+	    				<button type='button' class='btn btn-danger' @click='deletedata($event,item.id,idx)'>删除</button>
+	    				<button type='button' class='btn' @click="redact($event,item.id)">编辑</button>
 	    			</td>
 	    		</tr>
 	    	</tbody>
-		    	
-		    		
 	    		
 	    </table>
-	    
-	</div>
 </template>
 <script>
 	import http from "../../utils/HttpClient.js"
+
     export default {
     		
-    	    props:['api'],
+    	    props:['api','delapi'],
     		data(){
     			return{
-    				data:null
+    				data:[]
     			}
     		},
-    		mounted(){
+    		created(){
 	            console.log(666)
 	        	http.get(this.api).then(res=>{
 	                
-	                this.data = res.data.results
+	                this.data = res.data.results 
 	                console.log(this.data)
 	            })
+        	},
+        	methods:{
+        		deletedata(e,id,idx){
+        			console.log(e,idx)
+        			this.data.splice(idx,1)
+        			http.post(this.delapi,{id:id}).then(res=>{
+        				console.log(res)
+        			})
+        		},
+        		redact(e,id){
+        			this.$router.push({
+        				path:'/index/redact',
+        				query: {id: id}
+        			})
+        		}
         	}
+
         }
 </script>

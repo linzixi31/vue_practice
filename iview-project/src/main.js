@@ -6,6 +6,7 @@ import Routers from './router';
 import Util from './libs/util';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
+import './assets/css/bootstrap.min.css'  
 import store from './vuex/store';
 Vue.use(VueRouter);
 Vue.use(iView);

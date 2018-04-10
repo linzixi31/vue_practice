@@ -29,9 +29,6 @@ module.exports = {
             db.select(sql, function(data){
                    console.log(data)
                    res.send(data);
-                
-                
-                
             })
         })
 
