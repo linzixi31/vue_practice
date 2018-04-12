@@ -21,6 +21,11 @@ const router = new VueRouter(RouterConfig);
 router.beforeEach((to, from, next) => {
     iView.LoadingBar.start();
     Util.title(to.meta.title);
+    console.log(to.path)
+    if(to.path.indexOf('/login') < 0 && !window.localStorage.getItem('access_token')){
+        router.push({path:'/login'});
+        next();
+    } 
     next();
 });
 

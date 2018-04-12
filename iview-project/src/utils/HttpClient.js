@@ -1,6 +1,7 @@
 //http://visionmedia.github.io/superagent/
 import request from 'superagent'
-import router from '../router.js'
+import router from '../router'
+import Vue from 'vue'
 import $ from 'jquery'
 
 // import jsonp from 'superagent-jsonp';
@@ -19,7 +20,7 @@ function getUrl(path) {
 
 const errorHandler = (err) => {
     if(err.response && err.response.status == 401 && JSON.parse(err.response.text).msg == 'unauthorized'){
-        router.push({name: 'login'})
+        router.push({path:'/login'});
         return false;
     }
     var str = err.response.status
@@ -32,10 +33,10 @@ const errorHandler = (err) => {
 
 const HttpClient = {
     get: (path, query) => new Promise((resolve, reject) => {
-        // if(!window.localStorage.getItem('access_token')){
-        //     router.push({name: 'login'});
-        //     return false;
-        // }
+        if(!window.localStorage.getItem('access_token')){
+            router.push({path:'/login'});
+            return false;
+        }
         //$('.dk-spinner.dk-spinner-three-bounce, dk-spinner-mask').parent('div').show()
         var req = request
             .get(getUrl(path))
@@ -53,10 +54,10 @@ const HttpClient = {
     }),
 
     post: (path, formdata, query) => new Promise((resolve, reject) => {
-        // if(path.indexOf('login/index') < 0 && !window.localStorage.getItem('access_token')){
-        //     router.push({name: 'login'});
-        //     return false;            
-        // }        
+        if(path.indexOf('user') < 0 && !window.localStorage.getItem('access_token')){
+            router.push({path:'/login'});
+            return false;            
+        }        
         //$('.dk-spinner.dk-spinner-three-bounce, dk-spinner-mask').parent('div').show()
         request
             .post(getUrl(path))
@@ -70,7 +71,7 @@ const HttpClient = {
                     errorHandler(err)
                     reject(err);
                 } else {
-                    if(path.indexOf('login/index') > -1){
+                    if(path.indexOf('user') > -1){
                         window.localStorage.setItem('access_token', res.body.token_type + ' ' + res.body.access_token)
                     }
                     resolve(res.body);

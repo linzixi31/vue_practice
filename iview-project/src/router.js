@@ -1,6 +1,12 @@
 const routers = [
     {
-        path: '/index/',
+        name:'login',
+        path:'/login',   
+        component:(resolve) => require(['./components/logincomponent/login.vue'], resolve)
+
+    },
+    {
+        path: '/index',
         meta: {
             title: ''
         },
@@ -21,9 +27,11 @@ const routers = [
             {
                 path:'redact',
                 component:(resolve) => require(['./components/redactcomponent/redact.vue'], resolve)
-            },
+            }
 
         ]
     }
+    
 ];
+
 export default routers;
